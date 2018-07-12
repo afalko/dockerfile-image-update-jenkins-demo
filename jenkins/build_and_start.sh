@@ -9,6 +9,6 @@ sudo groupadd -g ${gid} ${group} && sudo useradd -d "/var/lib/jenkins" -u ${uid}
 sudo chown jenkins:jenkins /var/lib/jenkins
 
 echo "Building oss-argus-jenkins Docker container"
-docker build -t oss-argus-jenkins .
+docker build --pull -t oss-argus-jenkins .
 echo "Running oss-argus-jenkins"
 docker-compose up -d --force-recreate

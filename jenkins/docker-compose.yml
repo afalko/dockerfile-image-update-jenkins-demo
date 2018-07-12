@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   oss-argus-jenkins:
     image: oss-argus-jenkins
@@ -8,5 +8,8 @@ services:
       - JENKINS_OPTS="--prefix=/jenkins"
     ports:
       - "8080:8080"
+      - "80:8080"
     volumes:
-      - /var/lib/jenkins:/var/jenkins_home
+      - jenkins_home:/var/jenkins_home
+volumes:
+  jenkins_home:
