@@ -13,4 +13,4 @@ chown jenkins:jenkins /var/lib/jenkins
 echo "Building oss-argus-jenkins Docker container"
 docker build --pull -t oss-argus-jenkins .
 echo "Running oss-argus-jenkins"
-docker-compose up -d --force-recreate
+docker-compose up -d
