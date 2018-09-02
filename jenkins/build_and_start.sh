@@ -6,7 +6,8 @@ group=jenkins
 uid=1000
 gid=1000
 mkdir -p /var/lib/jenkins
-groupadd -g ${gid} ${group} && sudo useradd -d "/var/lib/jenkins" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+groupadd -g ${gid} ${group}
+useradd -d "/var/lib/jenkins" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 chown jenkins:jenkins /var/lib/jenkins
 
 echo "Building oss-argus-jenkins Docker container"

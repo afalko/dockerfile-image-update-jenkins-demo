@@ -8,7 +8,6 @@ services:
       - JENKINS_OPTS="--prefix=/jenkins"
     ports:
       - "8080:8080"
-      - "80:8080"
     volumes:
       - jenkins_home:/var/jenkins_home
 volumes:
