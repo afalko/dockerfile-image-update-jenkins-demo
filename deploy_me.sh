@@ -1,4 +1,7 @@
 #!/bin/bash
+
+git pull
+
 cp -R web/* /usr/share/nginx/html/
 chown -R nginx:nginx /usr/share/nginx/html
 
