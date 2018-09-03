@@ -2,6 +2,7 @@
 yum install docker git docker-compose httpd -y
 curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
+systemctl enable docker.service
 systemctl start docker.service
 echo '* * * * * root cd /root/dockerfile-image-update-jenkins-demo && /usr/bin/systemd-cat -t "jenkins-deploy" /bin/bash deploy_me.sh' > /etc/cron.d/jenkins-deploy
 
@@ -18,7 +19,10 @@ echo 'ServerName jenkins.afalko.net:80
     DocumentRoot "/var/www/html"
     ServerName "jenkins.afalko.net"
 </VirtualHost>' >> /etc/httpd/conf/httpd.conf
+# Clear out default self-signed ssl
+mv /etc/httpd/conf.d/ssl.conf{,.bak}
 
+systemctl enable httpd.service
 systemctl start httpd.service
 
 certbot --agree-tos -m afalko@gmail.com -n --apache -d jenkins.afalko.net
@@ -29,7 +33,6 @@ echo '* * * * * root /usr/bin/tar -cf /home/ec2-user/le-backup.tar /etc/letsencr
 echo '0 22 * * * root /usr/bin/certbot renew' > /etc/cron.d/le-renew
 
 echo 'Redirect /jenkins https://jenkins.afalko.net/jenkins
-Redirect / https://jenkins.afalko.net/
 ProxyPass         /jenkins  http://localhost:8080/jenkins nocanon
 ProxyPassReverse  /jenkins  http://localhost:8080/jenkins
 ProxyRequests     Off
