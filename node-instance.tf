@@ -24,9 +24,9 @@ resource "aws_autoscaling_group" "jenkins-nodes" {
   availability_zones = [
     "${var.az}"]
   #subnet = "${aws_subnet.jenkins-nodes.id}" TODO: Bug with terraform? I can add this manually in EC2 UI
-  desired_capacity = 1
-  max_size = 1
-  min_size = 1
+  desired_capacity = 2
+  max_size = 2
+  min_size = 2
   vpc_zone_identifier = ["${aws_subnet.jenkins-nodes.id}"]
   launch_template = {
     id = "${aws_launch_template.jenkins-nodes.id}"

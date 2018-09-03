@@ -2,3 +2,5 @@
 .terraform
 *.tfstate*
 *.pub
+.jenkins.env
+.clair.env

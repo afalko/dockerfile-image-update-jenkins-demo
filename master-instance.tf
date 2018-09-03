@@ -31,9 +31,14 @@ resource "aws_instance" "jenkins-master" {
   # where login is never needed, but it is too convenient to push this config in
   # TODO: Create new key pair
   key_name = "debug"
+  # TODO: Use S3 for these
   provisioner "file" {
     source      = ".jenkins.env"
-    destination = "/root/.jenkins.env"
+    destination = "/var/tmp/.jenkins.env"
+  }
+  provisioner "file" {
+    source = ".clair.env"
+    destination = "/var/tmp/.chair.env"
   }
 }
 
