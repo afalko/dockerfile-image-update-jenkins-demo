@@ -10,33 +10,5 @@ services:
       - "8080:8080"
     volumes:
       - jenkins_home:/var/jenkins_home
-  postgres:
-    container_name: clair_postgres
-    image: postgres:latest
-    env_file:
-      - /var/tmp/.clair.env
-  clair_autoconfig:
-    image: alpine:latest
-    volumes:
-      - ./clair_config:/config
-    env_file:
-      - /var/tmp/.clair.env
-    command: "/config/set_pg_pass.sh"
-  clair:
-    container_name: clair_clair
-    image: quay.io/coreos/clair-git:latest
-    depends_on:
-      - postgres
-      - clair_autoconfig
-    env_file:
-      - /var/tmp/.clair.env
-    ports:
-      - "6060-6061:6060-6061"
-    links:
-      - postgres
-    volumes:
-      - /tmp:/tmp
-      - ./clair_config:/config
-    command: [-config, /config/config.yaml]
 volumes:
   jenkins_home:

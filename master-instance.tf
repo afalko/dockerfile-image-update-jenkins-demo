@@ -36,10 +36,6 @@ resource "aws_instance" "jenkins-master" {
     source      = ".jenkins.env"
     destination = "/var/tmp/.jenkins.env"
   }
-  provisioner "file" {
-    source = ".clair.env"
-    destination = "/var/tmp/.chair.env"
-  }
 }
 
 resource "aws_eip" "jenkins-master" {
