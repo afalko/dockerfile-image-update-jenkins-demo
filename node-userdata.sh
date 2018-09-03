@@ -1,7 +1,12 @@
 #!/bin/bash
 
-yum install -y docker java-1.8.0-openjdk-headless git
+yum install -y wget yum-utils java-1.8.0-openjdk-headless git
+yum-config-manager --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+yum install -y docker-ce
+
+gpasswd -a centos docker
+
 systemctl enable docker
 systemctl start docker
 
-gpasswd -a ec2-user docker

@@ -41,7 +41,7 @@ resource "aws_security_group" "jenkins-master" {
 
 resource "aws_subnet" "jenkins-nodes" {
   vpc_id = "${aws_vpc.jenkins.id}"
-  cidr_block = "10.0.3.0/25"
+  cidr_block = "10.0.4.0/28"
   availability_zone = "${var.az}"
 }
 
