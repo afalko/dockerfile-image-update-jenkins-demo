@@ -1,8 +1,8 @@
 provider "aws" {
-  region = "us-west-2"
+  region = "us-east-1"
 }
 
 variable "az" {
   type = "string"
-  default = "us-west-2b"
+  default = "us-east-1f"
 }

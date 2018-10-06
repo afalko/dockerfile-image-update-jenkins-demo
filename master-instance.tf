@@ -18,6 +18,13 @@ data "aws_ami" "amzn2" {
   public_key = "${file("${id_rsa_pub}")}"
 }*/
 
+data aws_ebs_snapshot "jenkins-afalko-net" {
+  filter {
+    name = "description"
+    values = ["jenkins.afalko.net"]
+  }
+}
+
 resource "aws_instance" "jenkins-master" {
   ami = "${data.aws_ami.amzn2.id}"
   instance_type = "t2.small"
@@ -41,4 +48,16 @@ resource "aws_instance" "jenkins-master" {
 resource "aws_eip" "jenkins-master" {
   vpc = true
   instance = "${aws_instance.jenkins-master.id}"
+}
+
+data aws_route53_zone "afalko-net" {
+  name = "afalko.net"
+}
+
+resource "aws_route53_record" "jenkins-afalko-net" {
+  name = "jenkins.afalko.net"
+  type = "A"
+  zone_id = "${data.aws_route53_zone.afalko-net.id}"
+  records = ["${aws_eip.jenkins-master.public_ip}"]
+  ttl = 60
 }
