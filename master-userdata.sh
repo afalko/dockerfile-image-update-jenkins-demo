@@ -32,14 +32,14 @@ systemctl restart httpd.service
 echo '* * * * * root /usr/bin/tar -cf /home/ec2-user/le-backup.tar /etc/letsencrypt' > /etc/cron.d/le-backup
 echo '0 22 * * * root /usr/bin/certbot renew' > /etc/cron.d/le-renew
 
-echo 'Redirect /jenkins https://jenkins.afalko.net/jenkins
-ProxyPass         /jenkins  http://localhost:8080/jenkins nocanon
-ProxyPassReverse  /jenkins  http://localhost:8080/jenkins
+echo 'Redirect / https://jenkins.afalko.net/
+ProxyPass         /  http://localhost:8080/ nocanon
+ProxyPassReverse  /  http://localhost:8080/
 ProxyRequests     Off
 AllowEncodedSlashes NoDecode
 
 # Local reverse proxy authorization override
-<Proxy http://localhost:8080/jenkins*>
+<Proxy http://localhost:8080/*>
   Order deny,allow
   Allow from all
 </Proxy>' > /etc/httpd/conf.d/jenkins.conf

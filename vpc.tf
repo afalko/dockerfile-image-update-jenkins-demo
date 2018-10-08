@@ -46,6 +46,16 @@ resource "aws_security_group" "jenkins-master" {
       "${aws_subnet.jenkins-master.cidr_block}",
     ]
   }
+
+  ingress {
+    from_port = 443
+    to_port   = 443
+    protocol  = "TCP"
+
+    cidr_blocks = [
+      "0.0.0.0/0",
+    ]
+  }
 }
 
 resource "aws_subnet" "jenkins-nodes" {
