@@ -3,6 +3,6 @@ provider "aws" {
 }
 
 variable "az" {
-  type = "string"
+  type    = "string"
   default = "us-east-1f"
 }

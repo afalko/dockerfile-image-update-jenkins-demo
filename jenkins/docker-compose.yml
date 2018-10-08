@@ -4,8 +4,6 @@ services:
     image: oss-argus-jenkins
     env_file:
       - /var/tmp/.jenkins.env
-    environment:
-      - JENKINS_OPTS="--prefix=/jenkins"
     ports:
       - "8080:8080"
     volumes:
